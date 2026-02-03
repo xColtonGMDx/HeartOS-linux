@@ -1,0 +1,19 @@
+/* HeartOS Cinnamon Theme — No Image Version */
+
+/* Pink background for the whole desktop */
+#desktop {
+    background-color: #ff8ac9; /* soft pink */
+    background-image: none;
+}
+
+/* Centered red heart using CSS */
+#desktop:after {
+    content: "❤";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 200px;
+    color: #ff0033; /* bright red */
+    opacity: 0.9;
+}
