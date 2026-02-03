@@ -14,11 +14,11 @@ jobs:
     - name: Install tools
       run: |
         sudo apt update
-        sudo apt install -y xorriso squashfs-tools genisoimage
+        sudo apt install -y xorriso squashfs-tools genisoimage p7zip-full
 
-    - name: Download Linux Mint ISO
+    - name: Download Linux Mint ISO (Fast Mirror)
       run: |
-        wget -O mint.iso https://mirrors.edge.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
+        wget -O mint.iso https://mirror.us.leaseweb.net/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
 
     - name: Extract ISO
       run: |
