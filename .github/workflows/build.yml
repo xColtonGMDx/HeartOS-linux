@@ -16,9 +16,9 @@ jobs:
         sudo apt update
         sudo apt install -y xorriso squashfs-tools genisoimage p7zip-full
 
-    - name: Download Linux Mint ISO (Fast Mirror)
+    - name: Download Linux Mint ISO (Working Mirror)
       run: |
-        wget -O mint.iso https://mirrorservice.org/sites/linuxmint.com/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
+        wget -O mint.iso https://mirror.cs.odu.edu/linuxmint-releases/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
 
     - name: Extract ISO
       run: |
