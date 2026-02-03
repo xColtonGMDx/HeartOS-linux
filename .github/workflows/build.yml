@@ -1,0 +1,59 @@
+name: Build HeartOS ISO
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Install tools
+      run: |
+        sudo apt update
+        sudo apt install -y xorriso squashfs-tools genisoimage
+
+    - name: Download Linux Mint ISO
+      run: |
+        wget -O mint.iso https://mirrors.edge.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
+
+    - name: Extract ISO
+      run: |
+        mkdir iso
+        7z x mint.iso -oiso
+
+    - name: Extract squashfs
+      run: |
+        mkdir squashfs
+        sudo unsquashfs -d squashfs iso/casper/filesystem.squashfs
+
+    - name: Overlay HeartOS filesystem
+      run: |
+        sudo cp -r filesystem/* squashfs/
+
+    - name: Rebuild squashfs
+      run: |
+        sudo mksquashfs squashfs newfilesystem.squashfs -noappend
+
+    - name: Replace squashfs in ISO
+      run: |
+        sudo cp newfilesystem.squashfs iso/casper/filesystem.squashfs
+
+    - name: Rebuild ISO
+      run: |
+        mkdir output
+        xorriso -as mkisofs -r -V "HeartOS" \
+          -o output/HeartOS-linux-21.3.iso \
+          -b isolinux/isolinux.bin \
+          -c isolinux/boot.cat \
+          -no-emul-boot -boot-load-size 4 -boot-info-table \
+          iso/
+
+    - name: Upload ISO
+      uses: actions/upload-artifact@v3
+      with:
+        name: HeartOS-linux-21.3
+        path: output/HeartOS-linux-21.3.iso
