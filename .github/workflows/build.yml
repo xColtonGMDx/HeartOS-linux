@@ -18,7 +18,7 @@ jobs:
 
     - name: Download Linux Mint ISO (Fast Mirror)
       run: |
-        wget -O mint.iso https://mirror.us.leaseweb.net/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
+        wget -O mint.iso https://mirrorservice.org/sites/linuxmint.com/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
 
     - name: Extract ISO
       run: |
